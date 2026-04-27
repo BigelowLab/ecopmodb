@@ -1,0 +1,17 @@
+Package: ecopmodb
+Type: Package
+Title: Navigating ecopmo predictions
+Version: 0.0.1
+Authors@R: c(
+    person("Tupper", "Ben", email = "btupper@bigelow.org", role = c("aut","cre")))
+Description: Provides tools for navigating ecopmo prediction files.
+URL: https://github.com/BigelowLab/ecopmodb
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.2.0)
+Imports:
+  rlang,
+  dplyr,
+  readr,
+  stars
+RoxygenNote: 7.3.2

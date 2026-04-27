@@ -1,0 +1,68 @@
+---
+title: "ecopmodb"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This package provides functionality for navigating the prediction files produced by the [ecopmo](https://github.com/BigelowLab/ecopmo) package workflows.
+
+# Requirements
+
+## From CRAN
+
+  + [rlang](https://CRAN.R-project.org/package=rlang)
+  + [stars](https://CRAN.R-project.org/package=stars)
+  + [readr](https://CRAN.R-project.org/package=readr)
+  + [dplyr](https://CRAN.R-project.org/package=dplyr)
+  
+
+# Installation
+
+Use the [pak R package](https://CRAN.R-project.org/package=pak) to install directlly from Github.
+
+```
+pak::pak("BigelowLab/ecopmodb")
+```
+
+# Summary
+
+Prediction output are stored in a one-prediction-per-file architecture. Depending upon the data set, there may be many files per day (or month). To facilitate the navigation, selection and reading of files we provide a simple database which can be filtered to select files, and a function that will read the files into a [stars](https://CRAN.R-project.org/package=stars) array.
+
+
+
+# Read in a database
+
+To read a database, you need only need to provide a path to where the database is located.
+
+```{r}
+suppressPackageStartupMessages({
+  library(ecopmodb)
+  library(dplyr)
+  library(stars)
+})
+
+# obviously, you'll want to use a path that is available to you
+path = "/mnt/s1/projects/ecocast/projectdata/ecomoncopernicusmodel/copernicus/ctenop/versions/v0/v0.00/preds"
+db = ecopmodb::read_database(path)
+dplyr::count(db, per, type)
+```
+
+
+## Select a subset of files
+
+Filtering is quite easy using [dplyr](https://CRAN.R-project.org/package=dplyr).
+
+```{r}
+db = dplyr::filter(db,
+                   per == "monc",
+                   type == "q050")
+```
+
+Finally, read in the files.
+```{r}
+x = ecopmodb::read_ecopmo(db, path)
+x
+```
