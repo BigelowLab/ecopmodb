@@ -41,14 +41,18 @@ compose_filename = function(x = decompose_filename(),
   file.path(path, name)
 }
 
-#' @rdname decompose_filename
+#' Build a database
 #' @export
+#' @param path a path to a database directory or a configuration list
 #' @param pattern str, the regex pattern to use for finding files
 #' @param save_db logical, if `TRUE` then save the database
 #' @return a tabular database
 build_database = function(path = ".", 
                           pattern = "^.*\\.tif$", 
                           save_db = FALSE){
+  if (inherits(path, "list") && all(c("species", "version") %in% names(path))){
+    path = version_path(path, "preds")
+  }
   x = list.files(path, recursive= TRUE, pattern = pattern, full.names = FALSE) |>
     decompose_filename()
   if (save_db) x = write_database(x, path)
@@ -59,10 +63,13 @@ build_database = function(path = ".",
 #' Read, write and append a database
 #' 
 #' @export 
-#' @param path a path to a database directory
+#' @param path a path to a database directory or a configuration list
 #' @param filename str the database file name
 #' @return a tabular database
 read_database = function(path = ".", filename = "database"){
+  if (inherits(path, "list") && all(c("species", "version") %in% names(path))){
+    path = version_path(path, "preds")
+  }
   filename = file.path(path, filename)
   db = if(!file.exists(filename[1])){
     warning("database file not found: ", path)

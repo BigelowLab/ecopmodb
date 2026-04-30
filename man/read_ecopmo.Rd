@@ -2,9 +2,9 @@
 % Please edit documentation in R/io.R
 \name{read_ecopmo}
 \alias{read_ecopmo}
-\title{Read raster predictions}
+\title{Read raster predictions as stars or SpatRaster objects}
 \usage{
-read_ecopmo(db, path, threshold = NULL)
+read_ecopmo(db, path, threshold = NULL, form = c("stars", "SpatRaster")[1])
 }
 \arguments{
 \item{db}{data frame of file database}
@@ -13,10 +13,13 @@ read_ecopmo(db, path, threshold = NULL)
 
 \item{threshold}{num or NULL, if numeric then threshold the data to be 
 greater than or equal to this value.}
+
+\item{form}{chr one of 'stars' (default) or 'SpatRaster'.  If 'SpatRaster'
+be sure to read the help for [stars::as()].}
 }
 \value{
 stars object
 }
 \description{
-Read raster predictions
+Read raster predictions as stars or SpatRaster objects
 }

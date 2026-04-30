@@ -13,7 +13,7 @@ write_database(x, path = ".", filename = "database")
 append_database(x, path = ".", ...)
 }
 \arguments{
-\item{path}{a path to a database directory}
+\item{path}{a path to a database directory or a configuration list}
 
 \item{filename}{str the database file name}
 

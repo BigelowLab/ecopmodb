@@ -10,8 +10,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.2.0)
 Imports:
+  methods,
   rlang,
+  yaml,
   dplyr,
+  stringr,
   readr,
   stars
 RoxygenNote: 7.3.2

@@ -5,4 +5,5 @@
 #' @description Provides tools for navigating ecopmo prediction files.
 #' @keywords internal 
 #' @importFrom rlang .data
+#' @importFrom methods as
 "_PACKAGE"

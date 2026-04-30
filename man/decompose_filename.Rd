@@ -3,7 +3,6 @@
 \name{decompose_filename}
 \alias{decompose_filename}
 \alias{compose_filename}
-\alias{build_database}
 \title{Compose, decompose and build prediction databases}
 \usage{
 decompose_filename(
@@ -12,8 +11,6 @@ decompose_filename(
 )
 
 compose_filename(x = decompose_filename(), path = ".", ext = ".tif")
-
-build_database(path = ".", pattern = "^.*\\\\.tif$", save_db = FALSE)
 }
 \arguments{
 \item{filename}{str, one or more filenames to decompose}
@@ -23,10 +20,6 @@ build_database(path = ".", pattern = "^.*\\\\.tif$", save_db = FALSE)
 \item{x}{a tabular database}
 
 \item{path}{str the path to the data}
-
-\item{pattern}{str, the regex pattern to use for finding files}
-
-\item{save_db}{logical, if `TRUE` then save the database}
 }
 \value{
 a tabular database with these elements
@@ -35,8 +28,6 @@ a tabular database with these elements
 3. type str, descriptive where 'qNNN' is the N.NNth quantile
 
 one or more filepaths
-
-a tabular database
 }
 \description{
 `decompose_filename` and `build_database` return a tabular database while
