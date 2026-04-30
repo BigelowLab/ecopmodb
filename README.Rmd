@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This package provides functionality for navigating the prediction files produced by the [ecopmo](https://github.com/BigelowLab/ecopmo) package workflows.
 
-# Requirements
+# 1 Requirements
 
 ## From CRAN
 
@@ -17,23 +17,22 @@ This package provides functionality for navigating the prediction files produced
   + [stars](https://CRAN.R-project.org/package=stars)
   + [readr](https://CRAN.R-project.org/package=readr)
   + [dplyr](https://CRAN.R-project.org/package=dplyr)
-  
+  + [stringr](https://CRAN.R-project.org/package=stringr)
+  + [yaml](https://CRAN.R-project.org/package=yaml)
 
-# Installation
+# 2 Installation
 
-Use the [pak R package](https://CRAN.R-project.org/package=pak) to install directlly from Github.
+Use the [pak R package](https://CRAN.R-project.org/package=pak) to install directly from Github.
 
 ```
 pak::pak("BigelowLab/ecopmodb")
 ```
 
-# Summary
+# 3 Summary
 
-Prediction output are stored in a one-prediction-per-file architecture. Depending upon the data set, there may be many files per day (or month). To facilitate the navigation, selection and reading of files we provide a simple database which can be filtered to select files, and a function that will read the files into a [stars](https://CRAN.R-project.org/package=stars) array.
+Prediction output are stored in a one-prediction-per-file architecture. Depending upon the data set, there may be many files per day (or month). To facilitate the navigation, selection and reading of files we provide a simple database which can be filtered to select files, and a function that will read the files into a [stars](https://CRAN.R-project.org/package=stars) or [SpatRaster](https://CRAN.R-project.org/package=terra) array.
 
-
-
-# Read in a database
+# 4 Read in a database
 
 To read a database, you need only need to provide a path to where the database is located.
 
@@ -51,6 +50,16 @@ dplyr::count(db, per, type)
 ```
 
 
+## Have one place for all ecopmo outputs?
+
+If you have one directory where all of your [ecopmo](https://github.com/BigelowLab/ecopmo) prediction outputs are stored, then you can set up a hidden file to store that path. This is just a convenience for the user, and is not a requirement.
+
+```{r}
+ecopmo::set_root_data_path("/mnt/s1/projects/ecocast/projectdata/ecomoncopernicusmodel/copernicus")
+```
+
+This will be useful if you use configuration files (see below).
+
 ## Select a subset of files
 
 Filtering is quite easy using [dplyr](https://CRAN.R-project.org/package=dplyr).
@@ -61,8 +70,33 @@ db = dplyr::filter(db,
                    type == "q050")
 ```
 
-Finally, read in the files.
+## Finally, read in the files.
+
 ```{r}
 x = ecopmodb::read_ecopmo(db, path)
 x
+```
+These can be read in as [SpatRaster](https://CRAN.R-project.org/package=terra) class objects, but the arrangement of the layers may not be what you might hope.
+
+```{r}
+y = ecopmodb::read_ecopmo(db, path, form = "SpatRaster")
+y
+```
+
+# 5 Using configuration lists
+
+Configuration lists, stored in [YAML](https://yaml.org/) format, play a central role in the [ecopmo](https://github.com/BigelowLab/ecopmo) workflow.
+
+Assuming you set the root data path (see above) it is very easy to read in a configuration.
+
+```{r config}
+cfg = ecopmodb::read_configuration(species = "ctenop", version = "v0.00")
+str(cfg)
+```
+
+## Read a database with the configuration
+
+You maybe find it easier to read a database without having to muck around with paths.
+```{r read_dataase_config}
+db = ecopmodb::read_database(cfg)
 ```
