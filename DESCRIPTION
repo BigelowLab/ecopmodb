@@ -1,7 +1,7 @@
 Package: ecopmodb
 Type: Package
 Title: Navigating ecopmo predictions
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Tupper", "Ben", email = "btupper@bigelow.org", role = c("aut","cre")))
 Description: Provides tools for navigating ecopmo prediction files.

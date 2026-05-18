@@ -96,7 +96,8 @@ str(cfg)
 
 ## Read a database with the configuration
 
-You maybe find it easier to read a database without having to muck around with paths.
-```{r read_dataase_config}
+You may find it easier to read a database without having to muck around with paths.
+```{r read_datase_config}
 db = ecopmodb::read_database(cfg)
+db
 ```

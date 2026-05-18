@@ -19,7 +19,7 @@ compose_filename(x = decompose_filename(), path = ".", ext = ".tif")
 
 \item{x}{a tabular database}
 
-\item{path}{str the path to the data}
+\item{path}{str the path to the data or a configuration list}
 }
 \value{
 a tabular database with these elements

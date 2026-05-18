@@ -185,9 +185,25 @@ str(cfg)
 
 ## Read a database with the configuration
 
-You maybe find it easier to read a database without having to muck
-around with paths.
+You may find it easier to read a database without having to muck around
+with paths.
 
 ``` r
 db = ecopmodb::read_database(cfg)
+db
 ```
+
+    ## # A tibble: 36,935 × 3
+    ##    date       per   type 
+    ##    <date>     <chr> <chr>
+    ##  1 1993-01-01 day   q005 
+    ##  2 1993-01-01 day   q050 
+    ##  3 1993-01-01 day   q095 
+    ##  4 1993-01-01 mon   q050 
+    ##  5 1993-01-01 monc  q050 
+    ##  6 1993-01-02 day   q005 
+    ##  7 1993-01-02 day   q050 
+    ##  8 1993-01-02 day   q095 
+    ##  9 1993-01-03 day   q005 
+    ## 10 1993-01-03 day   q050 
+    ## # ℹ 36,925 more rows
