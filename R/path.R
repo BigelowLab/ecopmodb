@@ -136,3 +136,20 @@ make_path <- function(path, recursive = TRUE, ...){
   }
   path
 }
+
+#' Possibly retrieve a path from a configuration, but only if the input
+#' is a configuration list
+#' 
+#' @export
+#' @param path either a configuration list or a directory path
+#' @param ... other path segments to append to `path`
+#' @return a qualified path (but it might not exist)
+config_path = function(path, ...){
+  if (inherits(path, "list") && all(c("species", "version") %in% names(path))){
+    path = version_path(path, ...)
+  } else {
+    path = file.path(path, ...)
+  }
+  path
+}
+

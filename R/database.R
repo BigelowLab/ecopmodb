@@ -32,7 +32,7 @@ decompose_filename = function(filename = c('1993-01-01_day_q000.tif',
 compose_filename = function(x = decompose_filename(), 
                             path = ".", 
                             ext = ".tif"){
-  path = config_path(path)
+  path = config_path(path, "preds")
   name = sprintf("%s_%s_%s%s",
                  format(x$date, "%Y/%m/%d/%Y-%m-%d"),
                  x$per,
@@ -50,7 +50,7 @@ compose_filename = function(x = decompose_filename(),
 build_database = function(path = ".", 
                           pattern = "^.*\\.tif$", 
                           save_db = FALSE){
-  path = config_path(path)
+  path = config_path(path, "preds")
   x = list.files(path, recursive= TRUE, pattern = pattern, full.names = FALSE) |>
     decompose_filename()
   if (save_db) x = write_database(x, path)
@@ -65,7 +65,7 @@ build_database = function(path = ".",
 #' @param filename str the database file name
 #' @return a tabular database
 read_database = function(path = ".", filename = "database"){
-  path = config_path(path)
+  path = config_path(path, "preds")
   filename = file.path(path, filename)
   db = if(!file.exists(filename[1])){
     warning("database file not found: ", path)
@@ -85,7 +85,7 @@ read_database = function(path = ".", filename = "database"){
 #' @param x a tabular database
 #' @return the input tabular database
 write_database = function(x, path = ".", filename = "database"){
-  path = config_path(path)
+  path = config_path(path, "preds")
   ok = make_path(path)
   readr::write_csv(x, file.path(path, filename))
 }
@@ -96,25 +96,10 @@ write_database = function(x, path = ".", filename = "database"){
 #' @rdname read_database
 #' @param ... arguments passed to other functions such as `filename`
 append_database = function(x, path = ".", ...){
-  path = config_path(path)
+  path = config_path(path, "preds")
   y = read_database(path, ...)
   dplyr::bind_rows(y, x) |>
     dplyr::distinct() |>
     write_database(path)
 }
 
-#' Possibly retrieve a path from a configuration, but only if the input
-#' is a configuration list
-#' 
-#' @export
-#' @param path either a configuration list or a directory path
-#' @param ... other path segments to append to `path`
-#' @return a qualified path (but it might not exist)
-config_path = function(path, ...){
-  if (inherits(path, "list") && all(c("species", "version") %in% names(path))){
-    path = version_path(path, ...)
-  } else {
-    path = file.path(path, ...)
-  }
-  path
-}
