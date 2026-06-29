@@ -122,20 +122,6 @@ build_version <- function(major, minor, release, sep = "."){
   v
 }
 
-#' Given a path - make it if it doesn't exist
-#'
-#' @export
-#' @param path character, the path to check and/or create
-#' @param recursive logical, create paths recursively?
-#' @param ... other arguments for \code{dir.create}
-#' @return the path
-make_path <- function(path, recursive = TRUE, ...){
-  ok <- dir.exists(path[1])
-  if (!ok){
-    ok <- dir.create(path, recursive = recursive, ...)
-  }
-  path
-}
 
 #' Possibly retrieve a path from a configuration, but only if the input
 #' is a configuration list

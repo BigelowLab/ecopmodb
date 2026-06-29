@@ -5,23 +5,17 @@
 \title{Create a path if it doesn't exist}
 \usage{
 make_path(path, recursive = TRUE, ...)
-
-make_path(path, recursive = TRUE, ...)
 }
 \arguments{
-\item{path}{character, the path to check and/or create}
+\item{path}{str one or more path descriptions}
 
-\item{recursive}{logical, create paths recursively?}
+\item{recursive}{logical, if TRUE then make intermediary paths as needed}
 
-\item{...}{other arguments for \code{dir.create}}
+\item{...}{other arguments for `dir.create`}
 }
 \value{
 the input path(s)
-
-the path
 }
 \description{
 Create a path if it doesn't exist
-
-Given a path - make it if it doesn't exist
 }
