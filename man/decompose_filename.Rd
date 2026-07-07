@@ -10,7 +10,7 @@ decompose_filename(
   ext = ".tif"
 )
 
-compose_filename(x = decompose_filename(), path = ".", ext = ".tif")
+compose_filename(x = decompose_filename(), cfg = NULL, ext = ".tif")
 }
 \arguments{
 \item{filename}{str, one or more filenames to decompose}
@@ -19,7 +19,7 @@ compose_filename(x = decompose_filename(), path = ".", ext = ".tif")
 
 \item{x}{a tabular database}
 
-\item{path}{str the path to the data or a configuration list}
+\item{cfg}{configuration list}
 }
 \value{
 a tabular database with these elements

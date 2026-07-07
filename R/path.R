@@ -123,18 +123,18 @@ build_version <- function(major, minor, release, sep = "."){
 }
 
 
-#' Possibly retrieve a path from a configuration, but only if the input
-#' is a configuration list
+#' Retrieve a path from a configuration
 #' 
 #' @export
-#' @param path either a configuration list or a directory path
-#' @param ... other path segments to append to `path`
+#' @param cfg a configuration list
+#' @param ... other path segments to append to the path
 #' @return a qualified path (but it might not exist)
-config_path = function(path, ...){
-  if (inherits(path, "list") && all(c("species", "version") %in% names(path))){
-    path = version_path(path, ...)
+config_path = function(cfg, ...){
+  if (is.null(cfg)) cfg = "."
+  if (inherits(cfg, "list") && all(c("species", "version") %in% names(cfg))){
+    path = version_path(cfg, ...)
   } else {
-    path = file.path(path, ...)
+    path = file.path(cfg, ...)
   }
   path
 }

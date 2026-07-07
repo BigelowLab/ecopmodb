@@ -6,14 +6,14 @@
 \alias{append_database}
 \title{Read, write and append a database}
 \usage{
-read_database(path = ".", filename = "database")
+read_database(cfg, filename = "database")
 
-write_database(x, path = ".", filename = "database")
+write_database(x, cfg, filename = "database")
 
-append_database(x, path = ".", ...)
+append_database(x, cfg, ...)
 }
 \arguments{
-\item{path}{a path to a database directory or a configuration list}
+\item{cfg}{a configuration list}
 
 \item{filename}{str the database file name}
 

@@ -26,13 +26,13 @@ decompose_filename = function(filename = c('1993-01-01_day_q000.tif',
 #' @export
 #' @rdname decompose_filename
 #' @param x a tabular database
-#' @param path str the path to the data or a configuration list
+#' @param cfg configuration list
 #' @param ext the filename extension to remove or apply (with dot)
 #' @return one or more filepaths
 compose_filename = function(x = decompose_filename(), 
-                            path = ".", 
+                            cfg = NULL, 
                             ext = ".tif"){
-  path = config_path(path, "preds")
+  path = config_path(cfg, "preds")
   name = sprintf("%s_%s_%s%s",
                  format(x$date, "%Y/%m/%d/%Y-%m-%d"),
                  x$per,
@@ -43,17 +43,17 @@ compose_filename = function(x = decompose_filename(),
 
 #' Build a database
 #' @export
-#' @param path a path to a database directory or a configuration list
+#' @param cfg a configuration list
 #' @param pattern str, the regex pattern to use for finding files
 #' @param save_db logical, if `TRUE` then save the database
 #' @return a tabular database
-build_database = function(path = ".", 
+build_database = function(cfg, 
                           pattern = "^.*\\.tif$", 
                           save_db = FALSE){
-  path = config_path(path, "preds")
+  path = config_path(cfg, "preds")
   x = list.files(path, recursive= TRUE, pattern = pattern, full.names = FALSE) |>
     decompose_filename()
-  if (save_db) x = write_database(x, path)
+  if (save_db) x = write_database(x, cfg)
   x
 }
 
@@ -61,11 +61,11 @@ build_database = function(path = ".",
 #' Read, write and append a database
 #' 
 #' @export 
-#' @param path a path to a database directory or a configuration list
+#' @param cfg a configuration list
 #' @param filename str the database file name
 #' @return a tabular database
-read_database = function(path = ".", filename = "database"){
-  path = config_path(path, "preds")
+read_database = function(cfg, filename = "database"){
+  path = config_path(cfg, "preds")
   filename = file.path(path, filename)
   db = if(!file.exists(filename[1])){
     warning("database file not found: ", path)
@@ -84,8 +84,8 @@ read_database = function(path = ".", filename = "database"){
 #' @rdname read_database
 #' @param x a tabular database
 #' @return the input tabular database
-write_database = function(x, path = ".", filename = "database"){
-  path = config_path(path, "preds")
+write_database = function(x, cfg, filename = "database"){
+  path = config_path(cfg, "preds")
   ok = make_path(path)
   readr::write_csv(x, file.path(path, filename))
 }
@@ -95,11 +95,11 @@ write_database = function(x, path = ".", filename = "database"){
 #' @export
 #' @rdname read_database
 #' @param ... arguments passed to other functions such as `filename`
-append_database = function(x, path = ".", ...){
-  path = config_path(path, "preds")
+append_database = function(x, cfg, ...){
+  path = config_path(cfg, "preds")
   y = read_database(path, ...)
   dplyr::bind_rows(y, x) |>
     dplyr::distinct() |>
-    write_database(path)
+    write_database(cfg)
 }
 

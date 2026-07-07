@@ -4,10 +4,10 @@
 \alias{build_database}
 \title{Build a database}
 \usage{
-build_database(path = ".", pattern = "^.*\\\\.tif$", save_db = FALSE)
+build_database(cfg, pattern = "^.*\\\\.tif$", save_db = FALSE)
 }
 \arguments{
-\item{path}{a path to a database directory or a configuration list}
+\item{cfg}{a configuration list}
 
 \item{pattern}{str, the regex pattern to use for finding files}
 

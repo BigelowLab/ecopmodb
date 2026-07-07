@@ -2,20 +2,18 @@
 % Please edit documentation in R/path.R
 \name{config_path}
 \alias{config_path}
-\title{Possibly retrieve a path from a configuration, but only if the input
-is a configuration list}
+\title{Retrieve a path from a configuration}
 \usage{
-config_path(path, ...)
+config_path(cfg, ...)
 }
 \arguments{
-\item{path}{either a configuration list or a directory path}
+\item{cfg}{a configuration list}
 
-\item{...}{other path segments to append to `path`}
+\item{...}{other path segments to append to the path}
 }
 \value{
 a qualified path (but it might not exist)
 }
 \description{
-Possibly retrieve a path from a configuration, but only if the input
-is a configuration list
+Retrieve a path from a configuration
 }
