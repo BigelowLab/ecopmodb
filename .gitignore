@@ -1,3 +1,5 @@
+inst/ben/*
+
 # History files
 .Rhistory
 .Rapp.history

@@ -11,7 +11,8 @@
 #' 2. per str, period such as 'day' or 'mon'
 #' 3. type str, descriptive where 'qNNN' is the N.NNth quantile
 decompose_filename = function(filename = c('1993-01-01_day_q000.tif',
-                                           "1993-01-01_mon_mean.tif"),
+                                           "1993-01-01_mon_mean.tif",
+                                           "1993-01-01_monc_mean.tif"),
                               ext = ".tif"){
   x = basename(filename) |>
     stringr::str_replace(stringr::coll(ext[1]), "") |>
@@ -97,7 +98,7 @@ write_database = function(x, cfg, filename = "database"){
 #' @param ... arguments passed to other functions such as `filename`
 append_database = function(x, cfg, ...){
   path = config_path(cfg, "preds")
-  y = read_database(path, ...)
+  y = read_database(cfg, ...)
   dplyr::bind_rows(y, x) |>
     dplyr::distinct() |>
     write_database(cfg)

@@ -6,7 +6,8 @@
 \title{Compose, decompose and build prediction databases}
 \usage{
 decompose_filename(
-  filename = c("1993-01-01_day_q000.tif", "1993-01-01_mon_mean.tif"),
+  filename = c("1993-01-01_day_q000.tif", "1993-01-01_mon_mean.tif",
+    "1993-01-01_monc_mean.tif"),
   ext = ".tif"
 )
 
